@@ -1,0 +1,30 @@
+# Shopify CLI app configuration (optional - only needed if you use `shopify app` CLI)
+# You can also configure everything manually in the Shopify Partners dashboard (see SETUP-GUIDE)
+name = "COD Realistic"
+handle = "cod-realistic"
+client_id = "REPLACE_WITH_SHOPIFY_API_KEY"
+application_url = "https://REPLACE-YOUR-DOMAIN.up.railway.app"
+embedded = true
+
+[access_scopes]
+scopes = "write_draft_orders,read_draft_orders,read_orders,read_products,write_script_tags,read_script_tags"
+
+[auth]
+redirect_urls = [
+  "https://REPLACE-YOUR-DOMAIN.up.railway.app/api/auth/callback"
+]
+
+[webhooks]
+api_version = "2024-10"
+
+  [[webhooks.subscriptions]]
+  topics = [ "app/uninstalled" ]
+  uri = "/api/webhooks"
+
+[app_proxy]
+url = "https://REPLACE-YOUR-DOMAIN.up.railway.app/proxy"
+subpath = "cod"
+prefix = "apps"
+
+[pos]
+embedded = false

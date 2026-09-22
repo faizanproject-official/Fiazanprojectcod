@@ -1,0 +1,8 @@
+node_modules/
+dist/
+server/public/admin/
+.env
+.env.local
+*.log
+.DS_Store
+*.zip

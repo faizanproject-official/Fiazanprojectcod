@@ -1,0 +1,7 @@
+node_modules
+server/public/admin
+.env
+.env.local
+*.zip
+*.log
+.git
