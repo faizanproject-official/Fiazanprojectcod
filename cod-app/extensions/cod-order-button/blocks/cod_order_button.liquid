@@ -1,0 +1,85 @@
+{%- comment -%}
+  COD Realistic — 1-Click Cash on Delivery order form (APP EMBED block)
+  Theme Editor > App embeds > "COD Order Form" ON karne par:
+    - Shopify ke native "Add to cart" / "Buy it now" buttons chhup jate hain
+    - Unki jagah COD Realistic ka form show hota hai
+  Design / colors / fields: COD Realistic app > Form Designer.
+{%- endcomment -%}
+
+{%- if request.page_type == 'product' -%}
+
+  {%- assign w = block.settings.max_width | default: 480 -%}
+  {%- assign sp = block.settings.spacing | default: 18 -%}
+
+  <style>
+    [data-codr-embed]{max-width:{{ w }}px;margin:{{ sp }}px auto;}
+    [data-codr-embed]:empty{display:none;}
+    #codr-widget .codr-card{margin-top:{{ sp }}px;margin-bottom:{{ sp }}px;}
+    {%- if block.settings.replace_native_buttons %}
+    product-form button[name="add"],
+    form[action*="/cart/add"] button[name="add"],
+    form[action*="/cart/add"] [type="submit"],
+    .product-form__submit,
+    .product-form__cart-submit,
+    [data-action="add-to-cart"],
+    .shopify-payment-button,
+    .shopify-payment-button__button,
+    .buy-it-now-button,
+    .AddToCart,
+    #AddToCart{display:none !important;}
+    {%- endif %}
+  </style>
+
+  <div data-codr-embed aria-label="Cash on Delivery order form"></div>
+
+  <script>
+    window.__CODR_EMBED__ = {
+      appUrl: {{ block.settings.app_url | json }},
+      maxWidth: {{ w }},
+      spacing: {{ sp }},
+      replaceNative: {{ block.settings.replace_native_buttons | json }}
+    };
+  </script>
+
+  <script src="{{ block.settings.app_url }}/storefront/cod-widget.js?v=26" defer></script>
+
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "COD Order Form",
+  "target": "body",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "replace_native_buttons",
+      "label": "Replace Shopify Add to cart / Buy it now buttons",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Form width (px)",
+      "min": 300,
+      "max": 800,
+      "step": 20,
+      "default": 480
+    },
+    {
+      "type": "range",
+      "id": "spacing",
+      "label": "Vertical spacing (px)",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "default": 18
+    },
+    {
+      "type": "text",
+      "id": "app_url",
+      "label": "App URL (do not change)",
+      "default": "https://fiazanprojectcod-production.up.railway.app"
+    }
+  ]
+}
+{% endschema %}

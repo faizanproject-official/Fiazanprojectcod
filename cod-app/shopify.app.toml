@@ -1,0 +1,37 @@
+# Shopify CLI app configuration — COD Realistic (REAL values, deploy-ready)
+name = "COD Realistic"
+handle = "cod-realistic"
+client_id = "3ce132a9b1d666a73c5e7ab78e1972a3"
+application_url = "https://fiazanprojectcod-production.up.railway.app"
+embedded = true
+
+[build]
+include_config_on_deploy = true
+
+[access_scopes]
+scopes = "write_draft_orders,read_draft_orders,read_orders,read_products,write_script_tags,read_script_tags"
+
+[auth]
+redirect_urls = [
+  "https://fiazanprojectcod-production.up.railway.app/api/auth/callback",
+  "https://fiazanprojectcod-production.up.railway.app/api/auth"
+]
+
+[webhooks]
+api_version = "2024-10"
+
+  [[webhooks.subscriptions]]
+  topics = [ "app/uninstalled" ]
+  uri = "/api/webhooks"
+
+  [[webhooks.subscriptions]]
+  topics = [ "customers/data_request", "customers/redact", "shop/redact" ]
+  uri = "/api/webhooks"
+
+[app_proxy]
+url = "https://fiazanprojectcod-production.up.railway.app/proxy"
+subpath = "cod"
+prefix = "apps"
+
+[pos]
+embedded = false
